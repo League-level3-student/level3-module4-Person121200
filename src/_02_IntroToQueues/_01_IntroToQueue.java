@@ -82,8 +82,7 @@ public class _01_IntroToQueue {
 				}
 			}
 		}
-		System.out.println(stacks);
-		System.out.println(doubles);
+
 
 		// 5. Print and remove a random number of elements, from 1 to 5 elements,
 		// from the front of the Queue. Example:
