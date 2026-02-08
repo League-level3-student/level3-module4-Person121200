@@ -34,33 +34,62 @@ import java.util.ArrayDeque;
 
 public class _02_BaseballTickets {
 	public static int calculateWaitTime(ArrayDeque<Integer> ticketsQueue, int position) {
-		boolean temp = false;
-		int place = 0;
+		int decrementFriend = ticketsQueue.size();
 		int time = 0;
 		int friendTickets = 0;
 
-		for (int i = 0; i < position; i++) {
-
-			ticketsQueue.add(ticketsQueue.pop());
-			time +=1;
+//		System.out.println("Orinial queue: " + ticketsQueue);
+//		System.out.println("First Value" + ticketsQueue.getFirst());
+//		System.out.println("pop" + ticketsQueue.pop());
+//		System.out.println("popped queue: " + ticketsQueue);
+//		System.out.println("Add " + ticketsQueue.add(2));
+//		System.out.println("add queue: " + ticketsQueue);
+		if (position != 0) {
+			for (int i = 0; i < position; i++) {
+				ticketsQueue.add(ticketsQueue.pop()-1);
+				
+				time += 1;
+				System.out.println(ticketsQueue);
+			}
+			friendTickets = ticketsQueue.getFirst();
+			decrementFriend = 0;
 		}
-		friendTickets = ticketsQueue.getFirst();
-		while (friendTickets > 0) {
-			if(ticketsQueue.getFirst() >0) {
-				friendTickets-=1;
-				time +=1;
-				ticketsQueue.add(ticketsQueue.pop());
-				for(int i = 0; i<ticketsQueue.size()-1; i++) {
-					ticketsQueue.add(ticketsQueue.pop());
-					time +=1;
+
+		 else {
+			decrementFriend = 0;
+			friendTickets = ticketsQueue.getFirst();
+		}
+
+
+		while (friendTickets !=0) {
+			System.out.println(friendTickets);
+			System.out.println(decrementFriend);
+			if (decrementFriend == 0) {
+				friendTickets -= 1;
+				if (friendTickets == 0) {
+				    break;
+				}
+				ticketsQueue.add(ticketsQueue.pop()-1);
+
+				time += 1;
+				decrementFriend = ticketsQueue.size();
+
+			} else {
+				if (ticketsQueue.getFirst() >0) {
 					
+					ticketsQueue.add(ticketsQueue.pop()-1);
+					time += 1;
+					decrementFriend -= 1;
+
+				} else {
+					ticketsQueue.remove();
+					decrementFriend -= 1;
+					time += 1;
 
 				}
+
 			}
-
-			
 		}
-
-		return -1;
+		return time;
 	}
 }
