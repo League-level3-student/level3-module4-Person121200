@@ -34,62 +34,90 @@ import java.util.ArrayDeque;
 
 public class _02_BaseballTickets {
 	public static int calculateWaitTime(ArrayDeque<Integer> ticketsQueue, int position) {
-		int decrementFriend = ticketsQueue.size();
 		int time = 0;
-		int friendTickets = 0;
+		int tickets = 0;
 
-//		System.out.println("Orinial queue: " + ticketsQueue);
-//		System.out.println("First Value" + ticketsQueue.getFirst());
-//		System.out.println("pop" + ticketsQueue.pop());
-//		System.out.println("popped queue: " + ticketsQueue);
-//		System.out.println("Add " + ticketsQueue.add(2));
-//		System.out.println("add queue: " + ticketsQueue);
-		if (position != 0) {
-			for (int i = 0; i < position; i++) {
-				ticketsQueue.add(ticketsQueue.pop()-1);
-				
-				time += 1;
-				System.out.println(ticketsQueue);
-			}
-			friendTickets = ticketsQueue.getFirst();
-			decrementFriend = 0;
-		}
-
-		 else {
-			decrementFriend = 0;
-			friendTickets = ticketsQueue.getFirst();
-		}
-
-
-		while (friendTickets !=0) {
-			System.out.println(friendTickets);
-			System.out.println(decrementFriend);
-			if (decrementFriend == 0) {
-				friendTickets -= 1;
-				if (friendTickets == 0) {
-				    break;
+		while (true) {
+			tickets = ticketsQueue.removeFirst();
+			tickets -=1;
+			time +=1;
+			if(position ==0) {
+				if(tickets == 0) {
+					return time;
+				}else {
+					ticketsQueue.addLast(tickets);
 				}
-				ticketsQueue.add(ticketsQueue.pop()-1);
-
-				time += 1;
-				decrementFriend = ticketsQueue.size();
-
-			} else {
-				if (ticketsQueue.getFirst() >0) {
-					
-					ticketsQueue.add(ticketsQueue.pop()-1);
-					time += 1;
-					decrementFriend -= 1;
-
-				} else {
-					ticketsQueue.remove();
-					decrementFriend -= 1;
-					time += 1;
-
-				}
-
 			}
+
+			if(position ==0) {
+				position = ticketsQueue.size()-1;
+			}
+			else {
+				position-=1;
+			}
+			if(tickets >0) {
+				ticketsQueue.addLast(tickets);
+			}
+			
 		}
-		return time;
 	}
 }
+
+//		int decrementFriend = 0;
+//		int time = 0;
+//		int size = ticketsQueue.size();
+//		int friendTickets = 0;
+//
+//
+//		if (position != 0) {
+//			for (int i = 0; i < position; i++) {
+//				ticketsQueue.add(ticketsQueue.pop()-1);
+//				System.out.println(ticketsQueue);
+//				time += 1;
+//			}
+//			friendTickets = ticketsQueue.getFirst();
+//			decrementFriend = size;
+//			System.out.println(ticketsQueue);
+//			//Move to front. 
+//		}
+//
+//		 else {
+//				friendTickets = ticketsQueue.getFirst();
+//			decrementFriend = size;
+//			System.out.println(ticketsQueue);
+//
+//		}
+//
+//
+//		while (friendTickets !=0) {
+//
+//			if (decrementFriend == size) {
+//				friendTickets -= 1;
+//				if (friendTickets == 0) {
+//				    return time;
+//				}
+//				ticketsQueue.add(ticketsQueue.pop()-1);
+//
+//				time += 1;
+//				decrementFriend = 0;
+//
+//			} else {
+//				if (ticketsQueue.getFirst() >=1) {
+//					
+//					ticketsQueue.add(ticketsQueue.pop()-1);
+//					time += 1;
+//					decrementFriend += 1;
+//
+//				} else {
+//					ticketsQueue.remove();
+//					size = ticketsQueue.size();
+//					decrementFriend += 1;
+//					time += 1;
+//
+//				}
+//
+//			}
+//		}
+//		return 0;
+//	}
+//}
