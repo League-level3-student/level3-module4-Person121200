@@ -41,83 +41,19 @@ public class _02_BaseballTickets {
 			tickets = ticketsQueue.removeFirst();
 			tickets -=1;
 			time +=1;
-			if(position ==0) {
+			if(position == 0) {
 				if(tickets == 0) {
 					return time;
-				}else {
-					ticketsQueue.addLast(tickets);
 				}
-			}
-
-			if(position ==0) {
-				position = ticketsQueue.size()-1;
-			}
-			else {
+				position = ticketsQueue.size();
+			} else {
 				position-=1;
 			}
 			if(tickets >0) {
 				ticketsQueue.addLast(tickets);
 			}
+
 			
 		}
 	}
 }
-
-//		int decrementFriend = 0;
-//		int time = 0;
-//		int size = ticketsQueue.size();
-//		int friendTickets = 0;
-//
-//
-//		if (position != 0) {
-//			for (int i = 0; i < position; i++) {
-//				ticketsQueue.add(ticketsQueue.pop()-1);
-//				System.out.println(ticketsQueue);
-//				time += 1;
-//			}
-//			friendTickets = ticketsQueue.getFirst();
-//			decrementFriend = size;
-//			System.out.println(ticketsQueue);
-//			//Move to front. 
-//		}
-//
-//		 else {
-//				friendTickets = ticketsQueue.getFirst();
-//			decrementFriend = size;
-//			System.out.println(ticketsQueue);
-//
-//		}
-//
-//
-//		while (friendTickets !=0) {
-//
-//			if (decrementFriend == size) {
-//				friendTickets -= 1;
-//				if (friendTickets == 0) {
-//				    return time;
-//				}
-//				ticketsQueue.add(ticketsQueue.pop()-1);
-//
-//				time += 1;
-//				decrementFriend = 0;
-//
-//			} else {
-//				if (ticketsQueue.getFirst() >=1) {
-//					
-//					ticketsQueue.add(ticketsQueue.pop()-1);
-//					time += 1;
-//					decrementFriend += 1;
-//
-//				} else {
-//					ticketsQueue.remove();
-//					size = ticketsQueue.size();
-//					decrementFriend += 1;
-//					time += 1;
-//
-//				}
-//
-//			}
-//		}
-//		return 0;
-//	}
-//}
