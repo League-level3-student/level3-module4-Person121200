@@ -23,21 +23,55 @@ public class MazeMaker {
         //    This will be the starting point. Then select a random cell along
         //    the opposite wall and remove its exterior wall. This will be the
         //    finish line.
+        Cell startcell = maze.getCell(0, randGen.nextInt(rows));
+        Cell endcell = maze.getCell(cols-1, randGen.nextInt(rows));
+        startcell.setNorthWall(false);
+        endcell.setSouthWall(false);
         
         // 2. select a random cell in the maze to start 
         
         // 3. call the selectNextPath method with the randomly selected cell
-
+        selectNextPath(startcell);
         return maze;
     }
 
     // 4. Complete the selectNextPathMethod
     private static void selectNextPath(Cell currentCell) {
         // A. SET currentCell as visited
-
+    	currentCell.setBeenVisited(true);
+        ArrayList<Cell> unvisit = getUnvisitedNeighbors(currentCell);
+        
+        if(unvisit.size()>=1) {
+        Cell random = unvisit.get(randGen.nextInt(unvisit.size()));
         // B. check for unvisited neighbors using the cell
+    		uncheckedCells.push(random);
+    		if(currentCell.getCol() < random.getCol()) {
+    			random.setWestWall(false);
+    			currentCell.setEastWall(false);
+    		}
+    		if(currentCell.getCol() > random.getCol()) {
+    			random.setEastWall(false);
+    			currentCell.setWestWall(false);
+    		}
+    		if(currentCell.getRow() < random.getRow()) {
+    			currentCell.setSouthWall(false);
+    			random.setNorthWall(false);
+    		}
+    		if(currentCell.getRow()> random.getRow()) {
+    			currentCell.setNorthWall(false);
+    			random.setSouthWall(false);
+    		}
+    		currentCell = random;
+    		currentCell.setBeenVisited(true);
+    		selectNextPath(currentCell);
 
-        // C. if has unvisited neighbors,
+    		
+    	}
+    	if(getUnvisitedNeighbors(currentCell).size() == 0 && uncheckedCells.size() != 0) {
+    		currentCell = uncheckedCells.pop();
+    		selectNextPath(currentCell);
+    	}
+    	// C. if has unvisited neighbors,
 
         // C1. select one at random.
 
